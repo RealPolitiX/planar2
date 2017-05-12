@@ -49,10 +49,10 @@ class Affine(tuple):
     :type members: float
     """
 
-    def __new__(self, *members):
+    def __new__(cls, *members):
         if len(members) == 6:
             mat3x3 = [x * 1.0 for x in members] + [0.0, 0.0, 1.0]
-            return tuple.__new__(Affine, mat3x3)
+            return tuple.__new__(cls, mat3x3)
         else:
             raise TypeError(
                 "Expected 6 number args, got %s" % len(members))
@@ -74,8 +74,8 @@ class Affine(tuple):
         :rtype: Affine
         """
         ox, oy = offset
-        return tuple.__new__(cls, 
-            (1.0, 0.0, ox, 
+        return tuple.__new__(cls,
+            (1.0, 0.0, ox,
              0.0, 1.0, oy,
              0.0, 0.0, 1.0))
 
@@ -110,7 +110,7 @@ class Affine(tuple):
         """
         sx = math.tan(math.radians(x_angle))
         sy = math.tan(math.radians(y_angle))
-        return tuple.__new__(cls, 
+        return tuple.__new__(cls,
             (1.0, sy, 0.0,
              sx, 1.0, 0.0,
              0.0, 0.0, 1.0))
@@ -129,7 +129,7 @@ class Affine(tuple):
         """
         ca, sa = cos_sin_deg(angle)
         if pivot is None:
-            return tuple.__new__(cls, 
+            return tuple.__new__(cls,
                 (ca, sa, 0.0,
                 -sa, ca, 0.0,
                  0.0, 0.0, 1.0))
@@ -174,7 +174,7 @@ class Affine(tuple):
         transform.
         """
         a, b, c, d, e, f, g, h, i = self
-        return ((abs(a) < planar.EPSILON and abs(e) < planar.EPSILON) 
+        return ((abs(a) < planar.EPSILON and abs(e) < planar.EPSILON)
             or (abs(d) < planar.EPSILON and abs(b) < planar.EPSILON))
 
     @cached_property
@@ -195,7 +195,7 @@ class Affine(tuple):
         orthonormal transform to a shape always results in a congruent shape.
         """
         a, b, c, d, e, f, g, h, i = self
-        return (self.is_conformal 
+        return (self.is_conformal
             and abs(1.0 - (a*a + d*d)) < planar.EPSILON
             and abs(1.0 - (b*b + e*e)) < planar.EPSILON)
 
@@ -253,7 +253,7 @@ class Affine(tuple):
         sa, sb, sc, sd, se, sf, _, _, _ = self
         if isinstance(other, Affine):
             oa, ob, oc, od, oe, of, _, _, _ = other
-            return tuple.__new__(Affine, 
+            return tuple.__new__(self.__class__,
                 (sa*oa + sb*od, sa*ob + sb*oe, sa*oc + sb*of + sc,
                  sd*oa + se*od, sd*ob + se*oe, sd*oc + se*of + sf,
                  0.0, 0.0, 1.0))
@@ -315,7 +315,7 @@ class Affine(tuple):
         rb = -sb * idet
         rd = -sd * idet
         re = sa * idet
-        return tuple.__new__(Affine, 
+        return tuple.__new__(self.__class__,
             (ra, rb, -sc*ra - sf*rb,
              rd, re, -sc*rd - sf*re,
              0.0, 0.0, 1.0))
