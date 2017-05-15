@@ -49,13 +49,15 @@ class Affine(tuple):
     :type members: float
     """
 
-    def __new__(cls, *members):
-        if len(members) == 6:
-            mat3x3 = [x * 1.0 for x in members] + [0.0, 0.0, 1.0]
+    def __new__(cls, *args):
+        if len(args) == 6:
+            mat3x3 = [x * 1.0 for x in args] + [0.0, 0.0, 1.0]
             return tuple.__new__(cls, mat3x3)
+        elif len(args) == 1 and (len(args[0]) == 6 or len(args[0]) == 9):
+            return tuple.__new__(cls, args[0][:6] + (0.0, 0.0, 1.0))
         else:
             raise TypeError(
-                "Expected 6 number args, got %s" % len(members))
+                "Expected 6 number args or a single tuple, got %s" % args)
 
     @classmethod
     def identity(cls):
