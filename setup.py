@@ -22,15 +22,6 @@ srcdir = os.path.dirname(__file__)
 def read(fname):
     return open(os.path.join(srcdir, fname)).read()
 
-include_dirs = ['include']
-extra_compile_args = []
-
-if 'SETUP_PY_CFLAGS' in os.environ:
-	# SETUP_PY_CFLAGS allows you to pass in CFLAGS
-	# in a disutils-friendly way. Using CFLAGS directly
-	# causes linking to fail for some python versions
-	extra_compile_args.append(os.environ['SETUP_PY_CFLAGS'])
-
 setup(
     name='planar',
     version='0.4', # *** REMEMBER TO UPDATE __init__.py ***
@@ -59,24 +50,8 @@ setup(
 
     package_dir={'planar': 'lib/planar',
                  'planar.test': 'test'},
-    packages=['planar', 'planar.test'], 
-	ext_modules=[
-		Extension('planar.c', 
-			['lib/planar/cmodule.c', 
-			 'lib/planar/cvector.c',
-			 'lib/planar/ctransform.c',
-			 'lib/planar/cline.c',
-			 'lib/planar/cbox.c',
-			 'lib/planar/cpolygon.c',
-			], 
-			include_dirs=include_dirs,
-			#library_dirs=library_dirs,
-			#libraries=libraries,
-			#extra_link_args=extra_link_args,
-			extra_compile_args=extra_compile_args,
-			#define_macros=macros,
-		),
-    ],
+
+    packages=['planar', 'planar.test'],
 
     cmdclass = {'build_py': build_py},
 )

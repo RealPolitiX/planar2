@@ -4,12 +4,6 @@ def test_version_info():
     import planar
     assert_equal('%s.%s.%s' % planar.__versioninfo__, planar.__version__)
 
-def test_default_implementation():
-    import planar
-    import planar.c
-    assert_equal(planar.__implementation__, 'C')
-    assert planar.Vec2 is planar.c.Vec2, planar.Vec2
-
 def test_default_epsilon():
     import planar
     assert_equal(planar.EPSILON, 1e-5)
@@ -33,17 +27,17 @@ def test_set_epsilon():
 def test_py_imports():
 	import planar
 	import planar.py
-	from planar.py import (Vec2, Point, Vec2Array, Seq2, 
+	from planar.py import (Vec2, Point, Vec2Array, Seq2,
 		Line, Ray, LineSegment, Affine, BoundingBox, Polygon)
 	assert set(planar.py.__all__).issubset(set(planar.__all__)), (
 		planar.py.__all__, planar.__all__)
 
 def test_c_imports():
 	import planar.c
-	from planar.c import (Vec2, Vec2Array, Seq2, 
+	from planar.c import (Vec2, Vec2Array, Seq2,
 		Affine, BoundingBox, Polygon)
 
 def test_direct_imports():
-	from planar import (Vec2, Point, Vec2Array, Seq2, 
+	from planar import (Vec2, Point, Vec2Array, Seq2,
 		Affine, BoundingBox, Polygon)
 
