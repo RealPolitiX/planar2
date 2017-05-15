@@ -44,8 +44,13 @@ class Vec2(tuple):
     :type y: float
     """
 
-    def __new__(cls, x, y):
-        return tuple.__new__(cls, ((x * 1.0, y * 1.0)))
+    def __new__(cls, *args):
+        if len(args) == 2:
+            return tuple.__new__(cls, ((args[0] * 1.0, args[1] * 1.0)))
+        elif len(args) == 1 and len(args[0]) == 2:
+            return tuple.__new__(cls, args[0])
+        else:
+            raise TypeError("Expected 2 floats or a tuple of length 2, got %s" % args)
 
     @classmethod
     def polar(cls, angle, length=1.0):
