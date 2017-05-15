@@ -1,13 +1,13 @@
 #############################################################################
 # Copyright (c) 2010 by Casey Duncan
-# Portions copyright (c) 2009 The Super Effective Team 
+# Portions copyright (c) 2009 The Super Effective Team
 #                             (www.supereffective.org)
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #
-# * Redistributions of source code must retain the above copyright notice, 
+# * Redistributions of source code must retain the above copyright notice,
 #   this list of conditions and the following disclaimer.
 # * Redistributions in binary form must reproduce the above copyright notice,
 #   this list of conditions and the following disclaimer in the documentation
@@ -21,7 +21,7 @@
 # MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
 # EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,
 # INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
 # OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
@@ -379,7 +379,7 @@ class Vec2(tuple):
             except Exception:
                 return NotImplemented
             return tuple.__new__(self.__class__, (self[0] * ox, self[1] * oy))
-    
+
     __rmul__ = __imul__ = __mul__
 
     def __truediv__(self, other):
@@ -459,7 +459,7 @@ class Vec2(tuple):
     def __neg__(self):
         """Compute the unary negation of the vector."""
         return tuple.__new__(self.__class__, (-self[0], -self[1]))
-    
+
     def __abs__(self):
         """Compute the absolute magnitude of the vector."""
         return self.length
@@ -590,7 +590,7 @@ class Vec2Array(Seq2):
 
     def __delitem__(self, index):
         del self._vectors[index]
-    
+
     def longest(self):
         """Return the vector in the array with the maximum length."""
         longest = None
@@ -601,7 +601,7 @@ class Vec2Array(Seq2):
                 longest = vector
                 max_len = len
         return longest
-    
+
     def shortest(self):
         """Return the vector in the array with the minimum length."""
         shortest = None
@@ -949,5 +949,4 @@ class Vec2Array(Seq2):
     __str__ = __repr__
 
 
-# vim: ai ts=4 sts=4 et sw=4 tw=78
 

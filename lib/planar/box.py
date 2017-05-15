@@ -5,7 +5,7 @@
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #
-# * Redistributions of source code must retain the above copyright notice, 
+# * Redistributions of source code must retain the above copyright notice,
 #   this list of conditions and the following disclaimer.
 # * Redistributions in binary form must reproduce the above copyright notice,
 #   this list of conditions and the following disclaimer in the documentation
@@ -19,7 +19,7 @@
 # MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
 # EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,
 # INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
 # OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
@@ -44,7 +44,7 @@ class BoundingBox(object):
 
     def __init__(self, points):
         self._init_min_max(points)
-    
+
     def _init_min_max(self, points):
         points = iter(points)
         try:
@@ -62,21 +62,21 @@ class BoundingBox(object):
                 max_y = y * 1.0
         self._min = planar.Vec2(min_x, min_y)
         self._max = planar.Vec2(max_x, max_y)
-    
+
     @property
     def bounding_box(self):
         """The bounding box for this shape. For a BoundingBox instance,
         this is always itself.
         """
         return self
-    
+
     @property
     def min_point(self):
         """The minimum corner point for the shape. This is the corner
         with the smallest x and y value.
         """
         return self._min
-    
+
     @property
     def max_point(self):
         """The maximum corner point for the shape. This is the corner
@@ -88,17 +88,17 @@ class BoundingBox(object):
     def width(self):
         """The width of the box."""
         return self._max.x - self._min.x
-    
+
     @property
     def height(self):
         """The height of the box."""
         return self._max.y - self._min.y
-    
+
     @cached_property
     def center(self):
         """The center point of the box."""
         return (self._min + self._max) / 2.0
-    
+
     @cached_property
     def is_empty(self):
         """True if the box has zero area."""
@@ -142,7 +142,7 @@ class BoundingBox(object):
         box._min = planar.Vec2(min_x, min_y)
         box._max = planar.Vec2(max_x, max_y)
         return box
-    
+
     @classmethod
     def from_center(cls, center, width, height):
         """Create a bounding box centered at a particular point.
@@ -161,7 +161,7 @@ class BoundingBox(object):
             (cx - half_w, cy - half_h),
             (cx + half_w, cy + half_h),
             ])
-    
+
     def inflate(self, amount):
         """Return a new box resized from this one. The new
         box has its size changed by the specified amount,
@@ -180,7 +180,7 @@ class BoundingBox(object):
             dx = dy = amount * 1.0
         dv = planar.Vec2(dx, dy) / 2.0
         return self.from_points((self._min - dv, self._max + dv))
-    
+
     def contains_point(self, point):
         """Return True if the box contains the specified point.
 
@@ -189,9 +189,9 @@ class BoundingBox(object):
         :rtype: bool
         """
         x, y = point
-        return (self._min.x <= x < self._max.x 
+        return (self._min.x <= x < self._max.x
             and self._min.y < y <= self._max.y)
-    
+
     def fit(self, shape):
         """Create a new shape by translating and scaling shape so that
         it fits in this bounding box. The shape is scaled evenly so that
@@ -217,7 +217,7 @@ class BoundingBox(object):
         :rtype: :class:`~planar.Polygon`
         """
         return planar.Polygon([
-            self._min, (self._min.x, self._max.y), 
+            self._min, (self._min.x, self._max.y),
             self._max, (self._max.x, self._min.y)],
             is_convex=True)
 
@@ -240,7 +240,7 @@ class BoundingBox(object):
     def __repr__(self):
         """Precise string representation."""
         return "BoundingBox([(%r, %r), (%r, %r)])" % (
-            self.min_point.x, self.min_point.y, 
+            self.min_point.x, self.min_point.y,
             self.max_point.x, self.max_point.y)
 
     __str__ = __repr__
@@ -261,5 +261,4 @@ class BoundingBox(object):
     __rmul__ = __mul__
 
 
-# vim: ai ts=4 sts=4 et sw=4 tw=78
 

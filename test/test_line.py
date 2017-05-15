@@ -7,7 +7,7 @@ import unittest
 from nose.tools import assert_equal, assert_almost_equal, raises
 
 class LinearBaseTestCase(object):
-    
+
     @raises(TypeError)
     def test_no_args(self):
         self.LinearType()
@@ -158,7 +158,7 @@ class LineBaseTestCase(LinearBaseTestCase):
         line = self.Line((1,1), (-1, 1))
         assert_equal(line.direction, self.Vec2(-1,1).normalized())
         assert_almost_equal(line.offset, self.Vec2(1,1).length)
-    
+
     def test_direction_and_offset_thru_origin(self):
         line = self.Line((0,0), (-1,4))
         assert_equal(line.offset, 0)
@@ -317,7 +317,7 @@ class LineBaseTestCase(LinearBaseTestCase):
 
 
 class RayBaseTestCase(LinearBaseTestCase):
-    
+
     def test_from_points_many_collinear(self):
         ray = self.Ray.from_points(
             [(-7,-21), (-3,-9), (1, 3), (1003,3009), (5,15)])
@@ -392,7 +392,7 @@ class RayBaseTestCase(LinearBaseTestCase):
         assert not ray.point_behind((3, 17))
         assert not ray.point_behind((3, -2))
         assert not ray.point_behind((1, -2))
-        
+
     def test_point_right(self):
         import planar
         ray = self.Ray((-1,2), (-1,3))
@@ -447,7 +447,7 @@ class RayBaseTestCase(LinearBaseTestCase):
 
     @raises(TypeError)
     def test_imul_incompatible(self):
-        ray = self.Ray((0, 0), (1, 1)) 
+        ray = self.Ray((0, 0), (1, 1))
         ray *= 2
 
     def test_equals(self):
@@ -477,7 +477,7 @@ class RayBaseTestCase(LinearBaseTestCase):
     def test_str(self):
         ray = self.Ray((0.37, 0), (0, 1))
         assert_equal(str(ray), "Ray((0.37, 0.0), (0.0, 1.0))")
-        
+
     def test_repr(self):
         ray = self.Ray((0.37, 0), (0, 1))
         assert_equal(repr(ray), "Ray((0.37, 0.0), (0.0, 1.0))")
@@ -564,7 +564,7 @@ class BaseLineSegmentTestCase(LinearBaseTestCase):
         assert_almost_equal(line.start, self.Vec2(0, 0))
         assert_almost_equal(line.anchor, line.start)
         assert_almost_equal(line.end, self.Vec2(-1, 4.5))
-        
+
     @raises(TypeError)
     def test_set_anchor_wrong_type(self):
         line = self.LineSegment((1, 2), (2, 3))
@@ -584,12 +584,12 @@ class BaseLineSegmentTestCase(LinearBaseTestCase):
         assert_equal(line.vector, self.Vec2(0, 0))
         assert_equal(line.start, self.Vec2(5, -1))
         assert_equal(line.end, self.Vec2(5, -1))
-    
+
     @raises(TypeError)
     def test_set_vector_wrong_type(self):
         line = self.LineSegment((1, 2), (2, 3))
         line.vector = 'mama'
-    
+
     def test_set_end(self):
         import planar
         line = self.LineSegment((5,-1), (-3, 3))
@@ -736,7 +736,7 @@ class BaseLineSegmentTestCase(LinearBaseTestCase):
 
     @raises(TypeError)
     def test_imul_incompatible(self):
-        line = self.LineSegment((0, 0), (1, 1)) 
+        line = self.LineSegment((0, 0), (1, 1))
         line *= 2
 
     def test_equals(self):
@@ -774,7 +774,7 @@ class PyLineTestCase(LineBaseTestCase, unittest.TestCase):
     def test_str(self):
         line = self.Line((0.37, 0), (0, 1))
         assert_equal(str(line), "Line((0.37, 0.0), (0.0, 1.0))")
-        
+
     def test_repr(self):
         line = self.Line((0.37, 0), (0, 1))
         assert_equal(repr(line), "Line((0.37, 0.0), (0.0, 1.0))")
@@ -787,7 +787,7 @@ class CLineTestCase(LineBaseTestCase, unittest.TestCase):
     def test_str(self):
         line = self.Line((0.37, 0), (0, 1))
         assert_equal(str(line), "Line((0.37, -0), (0, 1))")
-        
+
     def test_repr(self):
         line = self.Line((0.37, 0), (0, 1))
         assert_equal(repr(line), "Line((0.37, -0), (0, 1))")
@@ -807,7 +807,7 @@ class CRayTestCase(RayBaseTestCase, unittest.TestCase):
     def test_str(self):
         ray = self.Ray((0.37, 0), (0, 1))
         assert_equal(str(ray), "Ray((0.37, 0), (0, 1))")
-        
+
     def test_repr(self):
         ray = self.Ray((0.37, 0), (0, 1))
         assert_equal(repr(ray), "Ray((0.37, 0), (0, 1))")
@@ -822,7 +822,7 @@ class PySegmentTestCase(BaseLineSegmentTestCase, unittest.TestCase):
     def test_str(self):
         line = self.LineSegment((0.37, 0), (2, 23.5))
         assert_equal(str(line), "LineSegment((0.37, 0.0), (2.0, 23.5))")
-        
+
     def test_repr(self):
         line = self.LineSegment((0.37, 0), (2, 23.5))
         assert_equal(repr(line), "LineSegment((0.37, 0.0), (2.0, 23.5))")
@@ -835,7 +835,7 @@ class CSegmentTestCase(BaseLineSegmentTestCase, unittest.TestCase):
     def test_str(self):
         line = self.LineSegment((0.37, 0), (2, 23.5))
         assert_equal(str(line), "LineSegment((0.37, 0), (2, 23.5))")
-        
+
     def test_repr(self):
         line = self.LineSegment((0.37, 0), (2, 23.5))
         assert_equal(repr(line), "LineSegment((0.37, 0), (2, 23.5))")
@@ -844,5 +844,4 @@ if __name__ == '__main__':
     unittest.main()
 
 
-# vim: ai ts=4 sts=4 et sw=4 tw=78
 

@@ -5,7 +5,7 @@
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #
-# * Redistributions of source code must retain the above copyright notice, 
+# * Redistributions of source code must retain the above copyright notice,
 #   this list of conditions and the following disclaimer.
 # * Redistributions in binary form must reproduce the above copyright notice,
 #   this list of conditions and the following disclaimer in the documentation
@@ -19,7 +19,7 @@
 # MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
 # EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,
 # INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
 # OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
@@ -154,7 +154,7 @@ class Polygon(planar.Seq2):
             verts.append((x * radius2 + cx, y * radius2 + cy))
             angle += angle_step
         is_simple = (radius1 > 0.0) == (radius2 > 0.0)
-        poly = cls(verts, is_convex=(radius1 == radius2), 
+        poly = cls(verts, is_convex=(radius1 == radius2),
             is_simple=is_simple or None)
         if is_simple:
             poly._centroid = planar.Vec2(*center)
@@ -279,7 +279,7 @@ class Polygon(planar.Seq2):
         if self._convex and not self._degenerate:
             self._dupe_verts = (count < len(self))
             self._split_y_polylines()
-    
+
     def _split_y_polylines(self):
         """Split the polygon into left and right y-monotone polylines.
         This optimizes operations on y-monotone polygons.
@@ -337,7 +337,7 @@ class Polygon(planar.Seq2):
             if self._simple is _unknown:
                 self._check_is_simple()
         return self._simple
-    
+
     @property
     def is_simple_known(self):
         """True if the polygon is already known to be simple or not.
@@ -354,10 +354,10 @@ class Polygon(planar.Seq2):
         """
         dir1 = (b[0] - a[0])*(c[1] - a[1]) - (c[0] - a[0])*(b[1] - a[1])
         dir2 = (b[0] - a[0])*(d[1] - a[1]) - (d[0] - a[0])*(b[1] - a[1])
-        if (dir1 > 0.0) != (dir2 > 0.0) or (not dir1) != (not dir2): 
+        if (dir1 > 0.0) != (dir2 > 0.0) or (not dir1) != (not dir2):
             dir1 = (d[0] - c[0])*(a[1] - c[1]) - (a[0] - c[0])*(d[1] - c[1])
             dir2 = (d[0] - c[0])*(b[1] - c[1]) - (b[0] - c[0])*(d[1] - c[1])
-            return ((dir1 > 0.0) != (dir2 > 0.0) 
+            return ((dir1 > 0.0) != (dir2 > 0.0)
                 or (not dir1) != (not dir2))
         return False
 
@@ -374,7 +374,7 @@ class Polygon(planar.Seq2):
         intersects = self._segments_intersect
         last_index = len(self) - 1
         indices = range(len(self))
-        points = ([(tuple(self[i - 1]), tuple(self[i]), i) for i in indices] 
+        points = ([(tuple(self[i - 1]), tuple(self[i]), i) for i in indices]
             + [(tuple(self[i]), tuple(self[i - 1]), i) for i in indices])
         points.sort() # lexicographical sort
         open_segments = {}
@@ -418,7 +418,7 @@ class Polygon(planar.Seq2):
                 centroid = planar.Vec2(0, 0)
                 for i in range(2, len(self)):
                     c = self[i]
-                    area = ((b[0] - a[0]) * (c[1] - a[1]) 
+                    area = ((b[0] - a[0]) * (c[1] - a[1])
                         - (c[0] - a[0]) * (b[1] - a[1]))
                     centroid += (a + b + c) * area
                     total_area += area
@@ -582,7 +582,7 @@ class Polygon(planar.Seq2):
             v0_x = v1_x
             v0_y = v1_y
         return winding_no != 0
-    
+
     def _pnp_y_monotone_test(self, point):
         """Return True if the point is in the polygon using a
         binary search of the polygon's 2 y-monotone edge polylines.
@@ -632,7 +632,7 @@ class Polygon(planar.Seq2):
         inv_denom = 1.0 / denom
         # The above vars are cached in the closure defined below
 
-        if ((hi[0] - lo[0])*(mid[1] - lo[1]) 
+        if ((hi[0] - lo[0])*(mid[1] - lo[1])
             - (mid[0] - lo[0])*(hi[1] - lo[1]) > 0.0):
             # Triangle has 2 inclusive leading edges
             def _pnp_triangle_test(point):
@@ -656,7 +656,7 @@ class Polygon(planar.Seq2):
         # which will intercept future calls
         self._pnp_triangle_test = _pnp_triangle_test
         return _pnp_triangle_test(point)
-    
+
     def contains_point(self, point):
         """Return True if the specified point is inside the polygon.
 
@@ -722,13 +722,13 @@ class Polygon(planar.Seq2):
     @staticmethod
     def _pt_above(p, a, b):
         """Return True if a is above b relative to fixed point p"""
-        return ((a[0] - p[0])*(b[1] - p[1]) 
+        return ((a[0] - p[0])*(b[1] - p[1])
             - (b[0] - p[0])*(a[1] - p[1]) > 0.0)
 
     @staticmethod
     def _pt_below(p, a, b):
         """Return True if a is below b relative to fixed point p"""
-        return ((a[0] - p[0])*(b[1] - p[1]) 
+        return ((a[0] - p[0])*(b[1] - p[1])
             - (b[0] - p[0])*(a[1] - p[1]) < 0.0)
 
     def _left_tan_i_convex(self, point):
@@ -737,9 +737,9 @@ class Polygon(planar.Seq2):
         """
         below = self._pt_below
         above = self._pt_above
-        
+
         # See if vertex[-1] is the tangent point
-        if (not below(point, self[0], self[-1]) 
+        if (not below(point, self[0], self[-1])
             and above(point, self[-2], self[-1])):
             return -1
 
@@ -771,9 +771,9 @@ class Polygon(planar.Seq2):
         """
         below = self._pt_below
         above = self._pt_above
-        
+
         # See if vertex[-1] is the tangent point
-        if (below(point, self[0], self[-1]) 
+        if (below(point, self[0], self[-1])
             and not above(point, self[-2], self[-1])):
             return -1
 
@@ -813,7 +813,7 @@ class Polygon(planar.Seq2):
         :rtype: tuple of :class:`~planar.Vec2`
         """
         if len(self) > 20 and self.is_convex and not self._dupe_verts:
-            return (self[self._left_tan_i_convex(point)], 
+            return (self[self._left_tan_i_convex(point)],
                 self[self._right_tan_i_convex(point)])
         else:
             return self._pt_tangents(point)
@@ -902,7 +902,7 @@ def _ahull_partition_points(hull, points, p0, p1):
             furthest = dist
             partition_point = p
     partition_point = planar.Vec2(*partition_point)
-    
+
     # Compute the triangle partition_point->p0->p1
     # in barycentric coordinates
     # All points inside this triangle are not in the hull
@@ -918,7 +918,7 @@ def _ahull_partition_points(hull, points, p0, p1):
     dot11 = v1.length2
     denom = (dot00 * dot11 - dot01 * dot01)
     # If denom is zero, the triangle has no area and
-    # all points lie on the partition line 
+    # all points lie on the partition line
     # and thus can be culled
     if denom:
         inv_denom = 1.0 / denom
@@ -980,7 +980,7 @@ def _ahull_sort_points(hull, points, p0, p1):
         while len(stack) >= 2:
             v0 = stack[-2]
             v1 = stack[-1]
-            if ((v1[0] - v0[0])*(p[1] - v0[1]) 
+            if ((v1[0] - v0[0])*(p[1] - v0[1])
                 - (p[0] - v0[0])*(v1[1] - v0[1]) >= 0.0):
                 pop()
             else:
@@ -993,4 +993,3 @@ def _ahull_sort_points(hull, points, p0, p1):
 _unknown = object()
 
 
-# vim: ai ts=4 sts=4 et sw=4 tw=78
