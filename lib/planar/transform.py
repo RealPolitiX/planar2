@@ -274,7 +274,7 @@ class Affine(tuple):
                 vx, vy = other
             except Exception:
                 return NotImplemented
-            return planar.Vec2(vx*sa + vy*sd + sc, vx*sb + vy*se + sf)
+            return planar.Vec2(vx*sa + vy*sb + sc, vx*sd + vy*se + sf)
 
     def __rmul__(self, other):
         # We should not be called if other is an affine instance
