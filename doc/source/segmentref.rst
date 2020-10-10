@@ -1,9 +1,9 @@
-:class:`planar.LineSegment` -- Line Segments
-============================================
+:class:`planar2.LineSegment` -- Line Segments
+=============================================
 
 .. index:: LineSegment, line segment class
 
-.. autoclass:: planar.LineSegment
+.. autoclass:: planar2.LineSegment
 	:members:
 	:inherited-members:
 

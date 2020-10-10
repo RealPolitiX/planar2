@@ -1,7 +1,7 @@
 Transform Objects
 =================
 
-.. currentmodule:: planar
+.. currentmodule:: planar2
 
 Transform objects are a mathematical mapping from one coordinate system
 to another. The coordinate systems can differ in terms of position (i.e.,
@@ -59,7 +59,7 @@ It is typical to use an alternate constructor to create affine transforms,
 rather that the default constructor. For example, it is trivial to create the
 simplest :class:`~planar.Affine` transform, the identity transform::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> ident = Affine.identity()
 	>>> print(ident)
 	| 1.00, 0.00, 0.00|
@@ -79,7 +79,7 @@ has no effect.
 
 Another basic transform is a simple translation::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> offset = Affine.translation((5, -1))
 	>>> print(offset)
 	| 1.00, 0.00, 5.00|
@@ -91,7 +91,7 @@ that the offset of the origin in the third column is now non-zero.
 
 Another simple transform is a scale::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> scale = Affine.scale(2.5)
 	>>> print(scale)
 	| 2.50, 0.00, 0.00|
@@ -101,7 +101,7 @@ Another simple transform is a scale::
 The example above applies a scale of 2.5 symmetrically to both axes. If desired,
 a different scale can be specified for each axis::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> scale = Affine.scale((0.75, 2))
 	>>> print(scale)
 	| 0.75, 0.00, 0.00|
@@ -114,7 +114,7 @@ in the X-axis and double its size along the Y-axis.
 It is also possible to flip an object along an axis by supplying a negative
 scaling factor::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> flip_x = Affine.scale((-1, 1))
 	>>> print(flip_x)
 	|-1.00, 0.00, 0.00|
@@ -127,7 +127,7 @@ an object along the X-axis, mirroring it across the origin.
 More sophisticated transforms can modify coordinates in more complex
 ways, such as applying rotation::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> rot90 = Affine.rotation(90)
 	>>> print(rot90)
 	| 0.00, 1.00, 0.00|
@@ -151,7 +151,7 @@ By default, rotation transforms are performed about the origin. You can
 specify another point to rotate around using the optional ``pivot``
 argument::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> rot = Affine.rotation(45, pivot=(-3, 8))
 	>>> print(rot)
 	| 0.71, 0.71, 4.78|
@@ -166,7 +166,7 @@ The last :class:`~planar.Affine` constructor allows the creation of shear
 transforms.  Shears can alter the angle of the X and Y axes relative to one
 another::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> shear = Affine.shear(30)
 	>>> print(shear)
 	| 1.00, 0.00, 0.00|
@@ -176,7 +176,7 @@ another::
 The above applies a 30 degree shear to the X-axis, and leaves the Y-axis
 unchanged. We can also create a shear for both axes::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> shear = Affine.shear(-45, 15)
 	>>> print(shear)
 	| 1.00, 0.27, 0.00|
@@ -193,7 +193,7 @@ assigned row-wise to the top 2 rows of the transformation matrix. This is
 probably only useful if you have a fixed, pre-calculated set of matrix values
 that you want to use::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> affine = Affine(0.2, 0.3, 0.4, 0.5, 0.6, 0.7)
 	>>> print(affine)
 	| 0.20, 0.30, 0.40|
@@ -221,7 +221,7 @@ multiplication. Combining transforms is powerful, because it allows you
 literally combine the effects of multiple different transformations into one.
 For example, suppose you have two transforms, a rotation and a scale::
 
-	>>> from planar import Affine
+	>>> from planar2 import Affine
 	>>> rot = Affine.rotation(30)
 	>>> scale = Affine.scale(2)
 
@@ -314,7 +314,7 @@ coordinate system.
 Other Operations
 ~~~~~~~~~~~~~~~~
 
-As you might expect, :class:`~planar.Affine` instances support equality
+As you might expect, :class:`~planar2.Affine` instances support equality
 comparisons.  These simply compare the transformation matrix values directly.
 Affine transforms also support an :meth:`Affine.almost_equals` method for
 approximate comparison, which is useful to compensate for floating point

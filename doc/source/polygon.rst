@@ -1,7 +1,7 @@
 Polygon Objects
 ===============
 
-.. currentmodule:: planar
+.. currentmodule:: planar2
 
 Polygons in ``planar`` are represented as a sequence of vertices. Each pair of
 vertices defines one edge of the polygon. The simplest polygon is the
@@ -13,24 +13,24 @@ There are a number of ways to construct polygons. The default constructor
 simply accepts an iterable containing points. These become the vertices of the
 resulting polygon in whatever order they are supplied::
 
-	>>> from planar import Polygon
+	>>> from planar2 import Polygon
 	>>> poly = Polygon([(0,-1), (2,0), (0,1), (-2,0)])
 
 It is also easy to construct regular polygons. To do so, you supply the
 :meth:`~planar.Polygon.regular` method with the number or vertices, radius
 value, and optionally a center point, and the angle of the first vertex::
 
-	>>> from planar import Polygon
+	>>> from planar2 import Polygon
 	>>> hexagon = Polygon.regular(6, radius=4, angle=30)
 	>>> print(hexagon)
 	Polygon([(3.4641, 2), (0, 4), (-3.4641, 2), (-3.4641, -2), (0, -4), (3.4641, -2)], is_convex=True)
 
 .. image:: _static/polyregular.png
 
-The :meth:`~planar.Polygon.star` method lets you create radial polygons with
+The :meth:`~planar2.Polygon.star` method lets you create radial polygons with
 vertices that alternate between two radii from the center point::
 
-	>>> from planar import Polygon
+	>>> from planar2 import Polygon
 	>>> star = Polygon.star(4, 1, 4)
 	>>> print(star)
 	Polygon([(1, 0), (2.82843, 2.82843), (0, 1), (-2.82843, 2.82843), (-1, 0), (-2.82843, -2.82843), (0, -1), (2.82843, -2.82843)], is_convex=False, is_simple=True)

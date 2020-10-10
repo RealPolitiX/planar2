@@ -15,8 +15,8 @@ Generally you will want to import classes directly from the top-level
 
 or::
 
-	import planar
-	v = planar.Vec2(5, 4)
+	import planar2
+	v = planar2.Vec2(5, 4)
 
 Doing this will give you the most efficient implementation available of each
 class where the program is being run. It will provide the native-code

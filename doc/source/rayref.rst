@@ -1,9 +1,9 @@
-:class:`planar.Ray` -- Infinite Semi-Lines
-==========================================
+:class:`planar2.Ray` -- Infinite Semi-Lines
+===========================================
 
 .. index:: Ray, ray class
 
-.. autoclass:: planar.Ray
+.. autoclass:: planar2.Ray
 	:members:
 	:inherited-members:
 

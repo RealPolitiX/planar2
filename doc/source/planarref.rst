@@ -1,7 +1,7 @@
-:mod:`planar` -- Global Definitions
-===================================
+:mod:`planar2` -- Global Definitions
+====================================
 
-.. module:: planar
+.. module:: planar2
    :synopsis: Global Definitions
 .. moduleauthor:: Casey Duncan <casey dot duncan at gmail dot com>
 

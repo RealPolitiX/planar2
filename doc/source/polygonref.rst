@@ -1,9 +1,9 @@
-:class:`planar.Polygon` -- Polygonal Shapes
-===========================================
+:class:`planar2.Polygon` -- Polygonal Shapes
+============================================
 
 .. index:: Polygon, polygon class
 
-.. autoclass:: planar.Polygon
+.. autoclass:: planar2.Polygon
 	:members:
 	:inherited-members:
 

@@ -3,6 +3,6 @@
 #*~
 #.*
 #MANIFEST
-build/*
+doc/build/*
 dist/*
 .pypirc

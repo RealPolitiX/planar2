@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Planar documentation build configuration file, created by
+# Planar2 documentation build configuration file, created by
 # sphinx-quickstart on Mon Apr  5 22:12:06 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -22,7 +22,7 @@ sys.path.append(os.path.abspath('../../lib'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.imgmath', 'sphinx.ext.ifconfig']
 
 autodoc_member_order = 'groupwise'
 
@@ -41,15 +41,15 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Planar'
-copyright = u'2010, Casey Duncan'
+project = u'Planar2'
+copyright = u'2010, Casey Duncan | 2020, R. Patrick Xian'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '0.4'
+version = '0.4.1'
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -176,8 +176,8 @@ htmlhelp_basename = 'Planardoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Planar.tex', u'Planar Documentation',
-   u'Casey Duncan', 'manual'),
+  ('index', 'Planar2.tex', u'Planar2 Documentation',
+   u'Casey Duncan, R. Patrick Xian', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
