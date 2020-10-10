@@ -351,6 +351,19 @@ class Polygon(planar.Seq2):
         """
         return self._simple is not _unknown
 
+    @property
+    def verts(self):
+        """Coordinates of the polygon vertices."""
+        vert_coords = list(map(list, zip(*self.values_mut)))
+        return vert_coords
+
+    @property
+    def verts_closed(self):
+        """Coordinates of the polygon vertices with the first vertex added to the last."""
+        ext = self.values_mut + [self.values_mut[0]]
+        verts_ext = list(map(list, zip(*ext)))
+        return verts_ext
+
     def _segments_intersect(self, a, b, c, d):
         """Return True if the line segment a->b intersects with
         line segment c->d

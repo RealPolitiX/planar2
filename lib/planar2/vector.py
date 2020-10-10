@@ -31,7 +31,7 @@
 
 
 import math
-import planar2
+import planar2 as planar
 from planar2.util import cached_property, assert_unorderable, cos_sin_deg
 
 
@@ -79,6 +79,16 @@ class Vec2(tuple):
     def y(self):
         """The vertical coordinate."""
         return self[1]
+
+    @property
+    def xy(self):
+        """Coordinate values"""
+        return tuple(self)
+
+    @property
+    def xy_mut(self):
+        """Mutable version of coordinate values."""
+        return list(self)
 
     @cached_property
     def length(self):
@@ -478,6 +488,20 @@ class Seq2(object):
 
     def __init__(self, vectors):
         self._vectors = [Vec2(*v) for v in vectors]
+
+    @property
+    def nvecs(self):
+        """The number of constituent points."""
+        return len(self._vectors)
+
+    @property
+    def values(self):
+        """Coordinates of all consituent points."""
+        return tuple(self._vectors[i].xy for i in range(self.nvecs))
+
+    @property
+    def values_mut(self):
+        return list(self._vectors[i].xy_mut for i in range(self.nvecs))
 
     @classmethod
     def from_points(cls, points):
