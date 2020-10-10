@@ -12,6 +12,7 @@
 # serve to show the default.
 
 import sys, os
+import planar2
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -49,7 +50,7 @@ copyright = u'2010, Casey Duncan | 2020, R. Patrick Xian'
 # built documents.
 #
 # The short X.Y version.
-version = '0.4.1'
+version = planar2.__version__
 # The full version, including alpha/beta/rc tags.
 release = version
 
