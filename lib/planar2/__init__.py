@@ -1,5 +1,6 @@
 #############################################################################
 # Copyright (c) 2010 by Casey Duncan
+# Portions copyright (c) 2020 by R. Patrick Xian
 # Portions copyright (c) 2009 The Super Effective Team 
 #                             (www.supereffective.org)
 # All rights reserved.
@@ -34,7 +35,7 @@ __all__ = ('TransformNotInvertibleError', 'set_epsilon',
     'Line', 'Ray', 'LineSegment',
     'Affine', 'BoundingBox', 'Polygon')
 
-__versioninfo__ = (0, 4, 0)
+__versioninfo__ = (0, 4, 1)
 __version__ = '.'.join(str(n) for n in __versioninfo__)
 
 try: # pragma: no cover

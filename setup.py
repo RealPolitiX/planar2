@@ -24,7 +24,7 @@ def read(fname):
 
 setup(
     name='planar2',
-    version='0.4', # *** REMEMBER TO UPDATE __init__.py ***
+    version='0.4.1', # *** REMEMBER TO UPDATE __init__.py ***
     description='2D planar geometry library for Python.',
     long_description=read('README.txt'),
     provides=['planar2'],

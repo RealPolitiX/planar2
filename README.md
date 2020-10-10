@@ -13,8 +13,7 @@ To install only the pure-Python modules without compiling, use::
 ```
 python setup.py build_py install --skip-build
 ```
-Only performance is sacrificed without the C extensions, all functionality is
-still available when using only the pure-Python modules.
+Only performance is sacrificed without the C extensions, all functionality is still available when using only the pure-Python modules.
 
 
 ### Documentation
