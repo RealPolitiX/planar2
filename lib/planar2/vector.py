@@ -83,12 +83,12 @@ class Vec2(tuple):
 
     @property
     def xy(self):
-        """Coordinate values"""
+        """Coordinate values, `(x, y)`."""
         return tuple(self)
 
     @property
     def xy_mut(self):
-        """Mutable version of coordinate values."""
+        """Mutable version of coordinate values, `[x, y]`."""
         return list(self)
 
     @cached_property
