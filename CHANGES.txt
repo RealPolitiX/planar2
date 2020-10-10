@@ -1,16 +1,22 @@
+Release 0.4.1 (10/10/2020)
+--------------------------
+- Fixed version compatibility issue.
+- Added coordinate outputs for Vec2, Seq2 and Polygon
+- Renamed to planar2 and updated docs
+
 Release 0.4 (3/21/2011)
 -----------------------
-- Added Line type
-- Added Ray type
-- Added LineSegment type
+- Added Line type.
+- Added Ray type.
+- Added LineSegment type.
 - Fixed build problem on Windows with MinGW. Thanks to Jonathan Hartley!
-- Add equality testing support to BoundingBox
+- Add equality testing support to BoundingBox.
 
 Release 0.3 (2/26/2011)
 -----------------------
-- Added BoundingBox type
-- Added Polygon type
-- Added py namespace module
+- Added BoundingBox type.
+- Added Polygon type.
+- Added py namespace module.
 
 Release 0.2.1 (8/24/2010)
 -------------------------
@@ -18,11 +24,11 @@ Release 0.2.1 (8/24/2010)
 
 Release 0.2 (8/21/2010)
 -----------------------
-- Added Seq2 base type
-- Added Vec2Array type
-- Added Affine transform type
+- Added Seq2 base type.
+- Added Vec2Array type.
+- Added Affine transform type.
 - Fix NaN bug in Vec2.length2 on Windows. Thanks to Jonathan Hartley!
 
 Release 0.1 (4/27/2010)
 -----------------------
-- Vec2 type implemented
+- Vec2 type implemented.
