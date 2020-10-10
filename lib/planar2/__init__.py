@@ -1,13 +1,13 @@
 #############################################################################
 # Copyright (c) 2010 by Casey Duncan
-# Portions copyright (c) 2009 The Super Effective Team
+# Portions copyright (c) 2009 The Super Effective Team 
 #                             (www.supereffective.org)
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #
-# * Redistributions of source code must retain the above copyright notice,
+# * Redistributions of source code must retain the above copyright notice, 
 #   this list of conditions and the following disclaimer.
 # * Redistributions in binary form must reproduce the above copyright notice,
 #   this list of conditions and the following disclaimer in the documentation
@@ -21,7 +21,7 @@
 # MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
 # EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,
 # INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
 # OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
@@ -29,25 +29,34 @@
 #############################################################################
 """2d planar geometry library for Python"""
 
-__all__ = ('TransformNotInvertibleError', 'set_epsilon',
-    'Vec2', 'Point', 'Vec2Array', 'Seq2',
+__all__ = ('TransformNotInvertibleError', 'set_epsilon', 
+    'Vec2', 'Point', 'Vec2Array', 'Seq2', 
     'Line', 'Ray', 'LineSegment',
     'Affine', 'BoundingBox', 'Polygon')
 
 __versioninfo__ = (0, 4, 0)
 __version__ = '.'.join(str(n) for n in __versioninfo__)
 
-# Fall-back to Python implementation
-from planar.vector import Vec2, Vec2Array, Seq2
-from planar.transform import Affine
-from planar.line import Line, Ray, LineSegment
-from planar.box import BoundingBox
-from planar.polygon import Polygon
+try: # pragma: no cover
+    # Default to C implementation
+    from planar2.c import _set_epsilon, Vec2, Vec2Array, Seq2, Affine, \
+        BoundingBox, Polygon, TransformNotInvertibleError
 
-class TransformNotInvertibleError(Exception):
-    """The transform could not be inverted"""
+    __implementation__ = 'C'
+except ImportError: # pragma: no cover
+    # Fall-back to Python implementation
+    from planar2.vector import Vec2, Vec2Array, Seq2
+    from planar2.transform import Affine
+    from planar2.line import Line, Ray, LineSegment
+    from planar2.box import BoundingBox
+    from planar2.polygon import Polygon
 
-def _set_epsilon(e): pass
+    class TransformNotInvertibleError(Exception):
+        """The transform could not be inverted"""
+
+    def _set_epsilon(e): pass
+
+    __implementation__ = 'Python'
 
 Point = Vec2
 """``Point`` is an alias for ``Vec2``. 
@@ -73,4 +82,5 @@ def set_epsilon(epsilon):
 set_epsilon(1e-5)
 
 
+# vim: ai ts=4 sts=4 et sw=4 tw=78
 

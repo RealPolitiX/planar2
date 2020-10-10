@@ -1,6 +1,6 @@
 """Polygon class unit tests"""
 
-from __future__ import division
+
 import sys
 import math
 import unittest
@@ -8,7 +8,7 @@ from nose.tools import assert_equal, assert_almost_equal, raises
 
 
 def assert_contains_point(polys, i, p):
-    containing = [j for j, t in enumerate(polys)
+    containing = [j for j, t in enumerate(polys) 
         if t.contains_point(p)]
     if i is not None:
         assert_equal([i], containing)
@@ -33,7 +33,7 @@ class PolygonBaseTestCase(object):
     def test_init_triangle(self):
         poly = self.Polygon([(-1,0), (1,1), (0,0)])
         assert_equal(len(poly), 3)
-        assert_equal(tuple(poly),
+        assert_equal(tuple(poly), 
             (self.Vec2(-1,0), self.Vec2(1,1), self.Vec2(0,0)))
 
     def test_is_Seq2_subclass(self):
@@ -58,7 +58,7 @@ class PolygonBaseTestCase(object):
         assert not poly.is_convex_known
 
     def test_specify_convex(self):
-        poly = self.Polygon([(-1,0), (-1,1), (0,0), (0, -1)],
+        poly = self.Polygon([(-1,0), (-1,1), (0,0), (0, -1)], 
             is_convex=True)
         assert_equal(len(poly), 4)
         assert poly.is_convex_known
@@ -74,7 +74,7 @@ class PolygonBaseTestCase(object):
         assert poly.is_simple
 
     def test_specify_simple(self):
-        poly = self.Polygon([(-1,0), (-0.5, 0.5), (-1,1), (0,0), (0, -1)],
+        poly = self.Polygon([(-1,0), (-0.5, 0.5), (-1,1), (0,0), (0, -1)], 
             is_simple=True)
         assert poly.is_simple_known
         assert poly.is_simple
@@ -102,7 +102,7 @@ class PolygonBaseTestCase(object):
         poly = self.Polygon([(0,0), (2,0), (1,0), (4,0), (4,-1), (0,-1)])
         assert not poly.is_convex
         # Rect with coincident edges
-        poly = self.Polygon([(0,0), (0,1), (1,1), (1,0),
+        poly = self.Polygon([(0,0), (0,1), (1,1), (1,0), 
             (0,0), (0,1), (1,1), (1,0)])
         assert not poly.is_convex
         # Triangle with coincident intruding edges
@@ -136,7 +136,7 @@ class PolygonBaseTestCase(object):
         assert not poly.is_simple
         assert poly.is_simple_known
         assert not poly.is_simple # test cached value
-
+    
     def test_mutation_invalidates_cached_properties(self):
         poly = self.Polygon([(0.5,0.5), (0.5,-0.5), (-0.5,-0.5), (-0.5,0.5)])
         assert poly.is_convex
@@ -195,7 +195,7 @@ class PolygonBaseTestCase(object):
     def test_regular_with_center_and_angle(self):
         import planar
         angle = -60
-        poly = self.Polygon.regular(vertex_count=3, radius=2,
+        poly = self.Polygon.regular(vertex_count=3, radius=2, 
             center=(-3, 1), angle=angle)
         assert_equal(len(poly), 3)
         assert poly.is_convex_known
@@ -245,7 +245,7 @@ class PolygonBaseTestCase(object):
 
     def test_star_with_center_and_angle(self):
         import planar
-        poly = self.Polygon.star(peak_count=2, radius1=1.5, radius2=3,
+        poly = self.Polygon.star(peak_count=2, radius1=1.5, radius2=3, 
             center=(-11, 3), angle=15)
         assert isinstance(poly, self.Polygon)
         assert_equal(len(poly), 4)
@@ -343,7 +343,7 @@ class PolygonBaseTestCase(object):
         poly2 = self.Polygon([(0,0), (1,0), (1,1), (0, 1)])
         assert not poly1 == poly2
         assert poly1 != poly2
-
+    
     def test_eq_different_starting_vert(self):
         poly1 = self.Polygon([(-3,3), (-1,-2), (1,-2), (3,3), (1,-1), (-1,-1)])
         poly2 = self.Polygon([(3,3), (1,-1), (-1,-1), (-3,3), (-1,-2), (1,-2)])
@@ -515,7 +515,7 @@ class PolygonBaseTestCase(object):
         assert not poly.contains_point((100, 100))
 
     def test_contains_point_concave(self):
-        poly = self.Polygon([(-1,0), (-1,1), (2,1), (2,0), (1.5,-1),
+        poly = self.Polygon([(-1,0), (-1,1), (2,1), (2,0), (1.5,-1), 
             (1,0), (0.5,-1), (0,0), (-0.5,-1)])
         assert not poly.is_convex
         assert poly.is_simple
@@ -543,7 +543,7 @@ class PolygonBaseTestCase(object):
         assert not poly.contains_point((100, 100))
 
     def test_contains_point_non_simple(self):
-        poly = self.Polygon([(2,-2), (-2,-2), (-2,2), (0,2), (0,-1),
+        poly = self.Polygon([(2,-2), (-2,-2), (-2,2), (0,2), (0,-1), 
             (1,-1), (1,0), (-1,0), (-1,1), (2,1)])
         assert not poly.is_convex
         assert not poly.is_simple
@@ -631,7 +631,7 @@ class PolygonBaseTestCase(object):
         polys = [
             self.Polygon([(0,0), (0,1), (1,1), (2,2), (3,2), (3,0)]),
             self.Polygon([(2,2), (1,1), (0,1), (1,2), (0,3), (1,3)]),
-            self.Polygon([(4,3), (1,3), (2,2), (3,2), (3,0),
+            self.Polygon([(4,3), (1,3), (2,2), (3,2), (3,0), 
                 (4,0), (5,2), (5,1)]),
         ]
         assert not polys[0].is_convex
@@ -667,40 +667,40 @@ class PolygonBaseTestCase(object):
 
     def test_tangents_to_point_convex(self):
         poly = self.Polygon.regular(30, 2)
-        assert_equal(poly.tangents_to_point((0,10)),
+        assert_equal(poly.tangents_to_point((0,10)), 
             (self.Vec2.polar(12, 2), self.Vec2.polar(168, 2)))
-        assert_equal(poly.tangents_to_point((0,5)),
+        assert_equal(poly.tangents_to_point((0,5)), 
             (self.Vec2.polar(24, 2), self.Vec2.polar(156, 2)))
-        assert_equal(poly.tangents_to_point((10,10)),
+        assert_equal(poly.tangents_to_point((10,10)), 
             (self.Vec2.polar(-36, 2), self.Vec2.polar(132, 2)))
-        assert_equal(poly.tangents_to_point((2,2)),
+        assert_equal(poly.tangents_to_point((2,2)), 
             (self.Vec2.polar(0, 2), self.Vec2.polar(96, 2)))
-        assert_equal(poly.tangents_to_point((-2,-2)),
+        assert_equal(poly.tangents_to_point((-2,-2)), 
             (self.Vec2.polar(180, 2), self.Vec2.polar(-84, 2)))
-        assert_equal(poly.tangents_to_point((-2,-20)),
+        assert_equal(poly.tangents_to_point((-2,-20)), 
             (self.Vec2.polar(180, 2), self.Vec2.polar(-12, 2)))
-        assert_equal(poly.tangents_to_point((5,20)),
+        assert_equal(poly.tangents_to_point((5,20)), 
             (self.Vec2.polar(-12, 2), self.Vec2.polar(156, 2)))
 
     def test_tangents_to_point_convex_reverse_wound(self):
         poly = self.Polygon(reversed(self.Polygon.regular(30, 2)))
-        assert_equal(poly.tangents_to_point((0,10)),
+        assert_equal(poly.tangents_to_point((0,10)), 
             (self.Vec2.polar(12, 2), self.Vec2.polar(168, 2)))
-        assert_equal(poly.tangents_to_point((0,-5)),
+        assert_equal(poly.tangents_to_point((0,-5)), 
             (self.Vec2.polar(-156, 2), self.Vec2.polar(-24, 2)))
-        assert_equal(poly.tangents_to_point((10,10)),
+        assert_equal(poly.tangents_to_point((10,10)), 
             (self.Vec2.polar(-36, 2), self.Vec2.polar(132, 2)))
-        assert_equal(poly.tangents_to_point((2,2)),
+        assert_equal(poly.tangents_to_point((2,2)), 
             (self.Vec2.polar(0, 2), self.Vec2.polar(96, 2)))
-        assert_equal(poly.tangents_to_point((-2,-2)),
+        assert_equal(poly.tangents_to_point((-2,-2)), 
             (self.Vec2.polar(180, 2), self.Vec2.polar(-84, 2)))
-        assert_equal(poly.tangents_to_point((-2,-20)),
+        assert_equal(poly.tangents_to_point((-2,-20)), 
             (self.Vec2.polar(180, 2), self.Vec2.polar(-12, 2)))
-        assert_equal(poly.tangents_to_point((5,20)),
+        assert_equal(poly.tangents_to_point((5,20)), 
             (self.Vec2.polar(-12, 2), self.Vec2.polar(156, 2)))
 
     def test_tangents_to_interior_point_convex(self):
-        # Although the results of this are undefined, we need
+        # Although the results of this are undefined, we need 
         # to ensure the library is at least well-behaved
         poly = self.Polygon.regular(30, 2)
         verts = list(poly)
@@ -719,7 +719,7 @@ class PolygonBaseTestCase(object):
         assert_equal(poly.tangents_to_point((-5,2)), ((-1,3), (0,-3)))
 
     def test_tangents_to_interior_point_non_convex(self):
-        # Although the results of this are undefined, we need
+        # Although the results of this are undefined, we need 
         # to ensure the library is at least well-behaved
         verts = [(1,-1), (0,-3), (-1,3), (0,1), (2,2), (2,-2)]
         poly = self.Polygon(verts)
@@ -773,17 +773,17 @@ class PolygonBaseTestCase(object):
         assert points == hull, (list(points), list(hull))
 
     def test_convex_hull_almost_convex_input_unordered(self):
-        points = [(-1.57211, 1.23632), (1.16011, -1.62915),
+        points = [(-1.57211, 1.23632), (1.16011, -1.62915), 
             (1.85674, -0.743325), (-1.77767, 0.916453), (1.85674, 0.743325),
             (-1.77767, -0.916453), (1.44747, -1.38016), (0.471518, 1.94362),
-            (-1.30972, 1.5115), (2, 0), (1.96386, 0.378502),
-            (-1.99094, -0.190112), (1.16011, 1.62915), (0.0951638, -1.99773),
-            (1.96386, -0.378502), (-1, -1.73205), (-0.28463, 1.97964),
-            (0.0951638, 1.99773), (-0.28463, -1.97964), (0.471518, -1.94362),
-            (-1.91899, -0.563465), (1.44747, 1.38016), (1.44747, 1.379),
-            (-0.654136, 1.89), (-1.99094, 0.190112), (-1.57211, -1.23632),
-            (-1.91899, 0.563465), (0.83083, -1.81926), (1.68251, 1.08128),
-            (-1.30972, -1.5115), (-1, 1.73205), (-0.654136, -1.89),
+            (-1.30972, 1.5115), (2, 0), (1.96386, 0.378502), 
+            (-1.99094, -0.190112), (1.16011, 1.62915), (0.0951638, -1.99773), 
+            (1.96386, -0.378502), (-1, -1.73205), (-0.28463, 1.97964), 
+            (0.0951638, 1.99773), (-0.28463, -1.97964), (0.471518, -1.94362), 
+            (-1.91899, -0.563465), (1.44747, 1.38016), (1.44747, 1.379), 
+            (-0.654136, 1.89), (-1.99094, 0.190112), (-1.57211, -1.23632), 
+            (-1.91899, 0.563465), (0.83083, -1.81926), (1.68251, 1.08128), 
+            (-1.30972, -1.5115), (-1, 1.73205), (-0.654136, -1.89), 
             (0.83083, 1.81926), (1.68251, -1.08128),]
         hull = self.Polygon.convex_hull(points)
         assert len(hull) == len(points) - 1, (len(hull), len(points))
@@ -802,12 +802,12 @@ class PolygonBaseTestCase(object):
 
     def test_str_and_repr(self):
         poly = self.Polygon([(0.25,3.5), (1.3,4.25), (0.16,2.25), (-0.5,0.16)])
-        assert_equal(repr(poly),
+        assert_equal(repr(poly), 
             "Polygon([(0.25, 3.5), (1.3, 4.25), (0.16, 2.25), (-0.5, 0.16)])")
         assert_equal(repr(poly), str(poly))
         assert not poly.is_convex
         assert poly.is_simple
-        assert_equal(repr(poly),
+        assert_equal(repr(poly), 
             "Polygon([(0.25, 3.5), (1.3, 4.25), (0.16, 2.25), (-0.5, 0.16)], "
             "is_convex=False, is_simple=True)")
         assert_equal(repr(poly), str(poly))
@@ -921,7 +921,7 @@ class PyPolygonWhiteBoxTestCase(unittest.TestCase):
     from planar.polygon import Polygon
 
     def test_split_y_polylines_convex(self):
-        poly = self.Polygon([(-1,0), (-1,1), (-0.5,2), (0,2),
+        poly = self.Polygon([(-1,0), (-1,1), (-0.5,2), (0,2), 
             (0.5,1.5), (0.5,-1), (-0.8, -0.5)])
         assert poly._y_polylines is None
         assert poly.is_convex
@@ -944,4 +944,5 @@ if __name__ == '__main__':
     unittest.main()
 
 
+# vim: ai ts=4 sts=4 et sw=4 tw=78
 

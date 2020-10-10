@@ -1,6 +1,6 @@
 """Transform unit tests"""
 
-from __future__ import division
+
 import sys
 import math
 import unittest
@@ -29,7 +29,7 @@ class AffineBaseTestCase(object):
 
     @raises(TypeError)
     def test_args_too_many(self):
-        self.Affine(*range(10))
+        self.Affine(*list(range(10)))
 
     @raises(TypeError)
     def test_args_members_wrong_type(self):
@@ -68,12 +68,12 @@ class AffineBaseTestCase(object):
 
     def test_str(self):
         assert_equal(
-            str(self.Affine(1.111, 2.222, 3.333, -4.444, -5.555, 6.666)),
+            str(self.Affine(1.111, 2.222, 3.333, -4.444, -5.555, 6.666)), 
             "| 1.11, 2.22, 3.33|\n|-4.44,-5.55, 6.67|\n| 0.00, 0.00, 1.00|")
 
     def test_repr(self):
         assert_equal(
-            repr(self.Affine(1.111, 2.222, 3.456, 4.444, 5.5, 6.25)),
+            repr(self.Affine(1.111, 2.222, 3.456, 4.444, 5.5, 6.25)), 
             ("Affine(1.111, 2.222, 3.456,\n"
              "       4.444, 5.5, 6.25)"))
 
@@ -98,7 +98,7 @@ class AffineBaseTestCase(object):
         assert_equal(tuple(scale), (-1,0,0, 0,2,0, 0,0,1))
         scale = self.Affine.scale(self.Vec2(3, 4))
         assert_equal(tuple(scale), (3,0,0, 0,4,0, 0,0,1))
-        assert_equal(tuple(self.Affine.scale(1)),
+        assert_equal(tuple(self.Affine.scale(1)), 
             tuple(self.Affine.identity()))
 
     def test_shear_constructor(self):
@@ -123,7 +123,7 @@ class AffineBaseTestCase(object):
         r = math.radians(337)
         s, c = math.sin(r), math.cos(r)
         seq_almost_equal(tuple(rot), (c,s,0, -s,c,0, 0,0,1))
-        assert_equal(tuple(self.Affine.rotation(0)),
+        assert_equal(tuple(self.Affine.rotation(0)), 
             tuple(self.Affine.identity()))
 
     def test_rotation_constructor_quadrants(self):
@@ -143,9 +143,9 @@ class AffineBaseTestCase(object):
         rot = self.Affine.rotation(27, pivot=self.Vec2(2,-4))
         r = math.radians(27)
         s, c = math.sin(r), math.cos(r)
-        assert_equal(tuple(rot),
+        assert_equal(tuple(rot), 
             (c,s,2 - 2*c - 4*s, -s,c,-4 - 2*s + 4*c, 0,0,1))
-        assert_equal(tuple(self.Affine.rotation(0, (-3, 2))),
+        assert_equal(tuple(self.Affine.rotation(0, (-3, 2))), 
             tuple(self.Affine.identity()))
 
     @raises(TypeError)
@@ -248,7 +248,7 @@ class AffineBaseTestCase(object):
     @raises(TypeError)
     def test_add(self):
         self.Affine(1,2,3,4,5,6) + self.Affine(6,5,4,3,2,1)
-
+        
     @raises(TypeError)
     def test_sub(self):
         self.Affine(1,2,3,4,5,6) - self.Affine(6,5,4,3,2,1)
@@ -296,7 +296,7 @@ class AffineBaseTestCase(object):
             def __iter__(self):
                 yield 0
         self.Affine(1,2,3,4,5,6) * NotPtSeq()
-
+        
     def test_rmul_vector(self):
         import planar
         t = self.Affine.rotation(-5)
@@ -315,7 +315,7 @@ class AffineBaseTestCase(object):
         import planar
         a = self.Affine.scale(3) * self.Affine.rotation(20)
         a *= self.Vec2.polar(6, 9)
-        assert isinstance(a, planar.Vec2)
+        assert isinstance(a, planar.Vec2) 
         assert_almost_equal(a.length, 27)
         assert_almost_equal(a.angle, 26)
 
@@ -327,7 +327,7 @@ class AffineBaseTestCase(object):
             ~self.Affine.rotation(-33.3), self.Affine.rotation(33.3))
         t = self.Affine(1,2,3,4,5,6)
         seq_almost_equal(~t * t,  self.Affine.identity())
-
+    
     def test_cant_invert_degenerate(self):
         from planar import TransformNotInvertibleError
         t = self.Affine.scale(0)
@@ -337,7 +337,7 @@ class AffineBaseTestCase(object):
 class PyAffineTestCase(AffineBaseTestCase, unittest.TestCase):
     from planar.transform import Affine
     from planar.vector import Vec2
-
+    
     def test_mul_vector_seq(self):
         class SomePoints(tuple):
             @classmethod
@@ -363,4 +363,5 @@ if __name__ == '__main__':
     unittest.main()
 
 
+# vim: ai ts=4 sts=4 et sw=4 tw=78
 

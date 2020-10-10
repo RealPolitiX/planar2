@@ -5,7 +5,7 @@
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #
-# * Redistributions of source code must retain the above copyright notice,
+# * Redistributions of source code must retain the above copyright notice, 
 #   this list of conditions and the following disclaimer.
 # * Redistributions in binary form must reproduce the above copyright notice,
 #   this list of conditions and the following disclaimer in the documentation
@@ -19,18 +19,18 @@
 # MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
 # EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,
 # INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
 # OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #############################################################################
 
-from __future__ import division
+
 
 import math
-import planar
-from planar.util import cached_property, assert_unorderable, cos_sin_deg
+import planar2 as planar
+from planar2.util import cached_property, assert_unorderable, cos_sin_deg
 
 
 class Affine(tuple):
@@ -49,15 +49,13 @@ class Affine(tuple):
     :type members: float
     """
 
-    def __new__(cls, *args):
-        if len(args) == 6:
-            mat3x3 = [x * 1.0 for x in args] + [0.0, 0.0, 1.0]
-            return tuple.__new__(cls, mat3x3)
-        elif len(args) == 1 and (len(args[0]) == 6 or len(args[0]) == 9):
-            return tuple.__new__(cls, args[0][:6] + (0.0, 0.0, 1.0))
+    def __new__(self, *members):
+        if len(members) == 6:
+            mat3x3 = [x * 1.0 for x in members] + [0.0, 0.0, 1.0]
+            return tuple.__new__(Affine, mat3x3)
         else:
             raise TypeError(
-                "Expected 6 number args or a single tuple, got %s" % args)
+                "Expected 6 number args, got %s" % len(members))
 
     @classmethod
     def identity(cls):
@@ -76,8 +74,8 @@ class Affine(tuple):
         :rtype: Affine
         """
         ox, oy = offset
-        return tuple.__new__(cls,
-            (1.0, 0.0, ox,
+        return tuple.__new__(cls, 
+            (1.0, 0.0, ox, 
              0.0, 1.0, oy,
              0.0, 0.0, 1.0))
 
@@ -95,11 +93,11 @@ class Affine(tuple):
             sx = sy = float(scaling)
         except TypeError:
             sx, sy = scaling
-        return tuple.__new__(cls,
+        return tuple.__new__(cls, 
             (sx, 0.0, 0.0,
              0.0, sy, 0.0,
              0.0, 0.0, 1.0))
-
+            
     @classmethod
     def shear(cls, x_angle=0, y_angle=0):
         """Create a shear transform along one or both axes.
@@ -112,7 +110,7 @@ class Affine(tuple):
         """
         sx = math.tan(math.radians(x_angle))
         sy = math.tan(math.radians(y_angle))
-        return tuple.__new__(cls,
+        return tuple.__new__(cls, 
             (1.0, sy, 0.0,
              sx, 1.0, 0.0,
              0.0, 0.0, 1.0))
@@ -131,7 +129,7 @@ class Affine(tuple):
         """
         ca, sa = cos_sin_deg(angle)
         if pivot is None:
-            return tuple.__new__(cls,
+            return tuple.__new__(cls, 
                 (ca, sa, 0.0,
                 -sa, ca, 0.0,
                  0.0, 0.0, 1.0))
@@ -176,7 +174,7 @@ class Affine(tuple):
         transform.
         """
         a, b, c, d, e, f, g, h, i = self
-        return ((abs(a) < planar.EPSILON and abs(e) < planar.EPSILON)
+        return ((abs(a) < planar.EPSILON and abs(e) < planar.EPSILON) 
             or (abs(d) < planar.EPSILON and abs(b) < planar.EPSILON))
 
     @cached_property
@@ -197,7 +195,7 @@ class Affine(tuple):
         orthonormal transform to a shape always results in a congruent shape.
         """
         a, b, c, d, e, f, g, h, i = self
-        return (self.is_conformal
+        return (self.is_conformal 
             and abs(1.0 - (a*a + d*d)) < planar.EPSILON
             and abs(1.0 - (b*b + e*e)) < planar.EPSILON)
 
@@ -255,7 +253,7 @@ class Affine(tuple):
         sa, sb, sc, sd, se, sf, _, _, _ = self
         if isinstance(other, Affine):
             oa, ob, oc, od, oe, of, _, _, _ = other
-            return tuple.__new__(self.__class__,
+            return tuple.__new__(Affine, 
                 (sa*oa + sb*od, sa*ob + sb*oe, sa*oc + sb*of + sc,
                  sd*oa + se*od, sd*ob + se*oe, sd*oc + se*of + sf,
                  0.0, 0.0, 1.0))
@@ -274,8 +272,8 @@ class Affine(tuple):
                 vx, vy = other
             except Exception:
                 return NotImplemented
-            return planar.Vec2(vx*sa + vy*sb + sc, vx*sd + vy*se + sf)
-
+            return planar.Vec2(vx*sa + vy*sd + sc, vx*sb + vy*se + sf)
+    
     def __rmul__(self, other):
         # We should not be called if other is an affine instance
         # This is just a guarantee, since we would potentially
@@ -317,7 +315,7 @@ class Affine(tuple):
         rb = -sb * idet
         rd = -sd * idet
         re = sa * idet
-        return tuple.__new__(self.__class__,
+        return tuple.__new__(Affine, 
             (ra, rb, -sc*ra - sf*rb,
              rd, re, -sc*rd - sf*re,
              0.0, 0.0, 1.0))
@@ -329,4 +327,5 @@ identity = Affine(1, 0, 0, 0, 1, 0)
 """The identity transform"""
 
 
+# vim: ai ts=4 sts=4 et sw=4 tw=78
 

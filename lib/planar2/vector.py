@@ -1,13 +1,13 @@
 #############################################################################
 # Copyright (c) 2010 by Casey Duncan
-# Portions copyright (c) 2009 The Super Effective Team
+# Portions copyright (c) 2009 The Super Effective Team 
 #                             (www.supereffective.org)
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #
-# * Redistributions of source code must retain the above copyright notice,
+# * Redistributions of source code must retain the above copyright notice, 
 #   this list of conditions and the following disclaimer.
 # * Redistributions in binary form must reproduce the above copyright notice,
 #   this list of conditions and the following disclaimer in the documentation
@@ -21,18 +21,18 @@
 # MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
 # EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,
 # INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
 # OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #############################################################################
 
-from __future__ import division
+
 
 import math
-import planar
-from planar.util import cached_property, assert_unorderable, cos_sin_deg
+import planar2
+from planar2.util import cached_property, assert_unorderable, cos_sin_deg
 
 
 class Vec2(tuple):
@@ -44,13 +44,8 @@ class Vec2(tuple):
     :type y: float
     """
 
-    def __new__(cls, *args):
-        if len(args) == 2:
-            return tuple.__new__(cls, ((args[0] * 1.0, args[1] * 1.0)))
-        elif len(args) == 1 and len(args[0]) == 2:
-            return tuple.__new__(cls, args[0])
-        else:
-            raise TypeError("Expected 2 floats or a tuple of length 2, got %s" % args)
+    def __new__(self, x, y):
+        return tuple.__new__(Vec2, ((x * 1.0, y * 1.0)))
 
     @classmethod
     def polar(cls, angle, length=1.0):
@@ -104,7 +99,7 @@ class Vec2(tuple):
         """
         return self.length2 < planar.EPSILON2
 
-    def __nonzero__(self):
+    def __bool__(self):
         """A vector is True if it is not the null vector."""
         return self[0] != 0.0 or self[1] != 0.0
 
@@ -128,7 +123,7 @@ class Vec2(tuple):
         """
         L = self.length
         if L > planar.EPSILON:
-            v = tuple.__new__(self.__class__, (self[0] / L, self[1] / L))
+            v = tuple.__new__(Vec2, (self[0] / L, self[1] / L))
             v.__dict__['length'] = v.__dict__['length2'] = 1.0
             return v
         else:
@@ -139,7 +134,7 @@ class Vec2(tuple):
         
         :rtype: Vec2
         """
-        return tuple.__new__(self.__class__, (-self[1], self[0]))
+        return tuple.__new__(Vec2, (-self[1], self[0]))
 
     def dot(self, other):
         """Compute the dot product with another vector.
@@ -198,7 +193,7 @@ class Vec2(tuple):
         """
         vx, vy = self
         ca, sa = cos_sin_deg(angle)
-        return tuple.__new__(self.__class__, (vx * ca - vy * sa, vx * sa + vy * ca))
+        return tuple.__new__(Vec2, (vx * ca - vy * sa, vx * sa + vy * ca))
 
     def scaled_to(self, length):
         """Compute the vector scaled to a given length. If the
@@ -213,7 +208,7 @@ class Vec2(tuple):
         if L > planar.EPSILON:
             vx, vy = self
             s = length / L
-            v = tuple.__new__(self.__class__, (vx * s, vy * s))
+            v = tuple.__new__(Vec2, (vx * s, vy * s))
             v.__dict__['length'] = length
             return v
         else:
@@ -229,7 +224,7 @@ class Vec2(tuple):
         L = self.length2
         if L > planar.EPSILON2:
             s = self.dot(other) / L
-            return tuple.__new__(self.__class__, (self[0] * s, self[1] * s))
+            return tuple.__new__(Vec2, (self[0] * s, self[1] * s))
         else:
             return null
 
@@ -245,7 +240,7 @@ class Vec2(tuple):
         L = (x2 * x2 + y2 * y2)
         if L > planar.EPSILON2:
             temp = 2 * (x1 * x2 + y1 * y2) / L
-            return tuple.__new__(self.__class__, (x2 * temp - x1, y2 * temp - y1))
+            return tuple.__new__(Vec2, (x2 * temp - x1, y2 * temp - y1))
         else:
             return null
 
@@ -262,7 +257,7 @@ class Vec2(tuple):
         :type max_length: float
         :rtype: Vec2
         """
-        if (min_length is not None and max_length is not None
+        if (min_length is not None and max_length is not None 
             and min_length > max_length):
             raise ValueError(
                 "Vec2.clamped: expected min_length <= max_length")
@@ -287,12 +282,12 @@ class Vec2(tuple):
         """
         ox, oy = other
         b1 = 1.0 - bias
-        return tuple.__new__(self.__class__,
+        return tuple.__new__(Vec2,
             (self[0] * b1 + ox * bias, self[1] * b1 + oy * bias))
 
     def __eq__(self, other):
         try:
-            return (self[0] == other[0] and self[1] == other[1]
+            return (self[0] == other[0] and self[1] == other[1] 
                 and len(other) == 2)
         except (TypeError, IndexError):
             return False
@@ -350,7 +345,7 @@ class Vec2(tuple):
             ox, oy = other
         except Exception:
             return NotImplemented
-        return tuple.__new__(self.__class__, (self[0] + ox, self[1] + oy))
+        return tuple.__new__(Vec2, (self[0] + ox, self[1] + oy))
 
     __iadd__ = __add__
 
@@ -364,7 +359,7 @@ class Vec2(tuple):
             ox, oy = other
         except Exception:
             return NotImplemented
-        return tuple.__new__(self.__class__, (self[0] - ox, self[1] - oy))
+        return tuple.__new__(Vec2, (self[0] - ox, self[1] - oy))
 
     __isub__ = __sub__
 
@@ -377,14 +372,14 @@ class Vec2(tuple):
         """
         try:
             other = float(other)
-            return tuple.__new__(self.__class__, (self[0] * other, self[1] * other))
+            return tuple.__new__(Vec2, (self[0] * other, self[1] * other))
         except TypeError:
             try:
                 ox, oy = other
             except Exception:
                 return NotImplemented
-            return tuple.__new__(self.__class__, (self[0] * ox, self[1] * oy))
-
+            return tuple.__new__(Vec2, (self[0] * ox, self[1] * oy))
+    
     __rmul__ = __imul__ = __mul__
 
     def __truediv__(self, other):
@@ -396,13 +391,13 @@ class Vec2(tuple):
         """
         try:
             other = float(other)
-            return tuple.__new__(self.__class__, (self[0] / other, self[1] / other))
+            return tuple.__new__(Vec2, (self[0] / other, self[1] / other))
         except TypeError:
             try:
                 ox, oy = other
             except Exception:
                 return NotImplemented
-            return tuple.__new__(self.__class__, (self[0] / ox, self[1] / oy))
+            return tuple.__new__(Vec2, (self[0] / ox, self[1] / oy))
 
     __itruediv__ = __truediv__
 
@@ -414,13 +409,13 @@ class Vec2(tuple):
         """
         try:
             other = float(other)
-            return tuple.__new__(self.__class__, (other / self[0], other / self[1]))
+            return tuple.__new__(Vec2, (other / self[0], other / self[1]))
         except TypeError:
             try:
                 ox, oy = other
             except Exception:
                 return NotImplemented
-            return tuple.__new__(self.__class__, (ox / self[0], oy / self[1]))
+            return tuple.__new__(Vec2, (ox / self[0], oy / self[1]))
 
     def __floordiv__(self, other):
         """Divide the vector by a scalar or componentwise by
@@ -431,13 +426,13 @@ class Vec2(tuple):
         """
         try:
             other = float(other)
-            return tuple.__new__(self.__class__, (self[0] // other, self[1] // other))
+            return tuple.__new__(Vec2, (self[0] // other, self[1] // other))
         except TypeError:
             try:
                 ox, oy = other
             except Exception:
                 return NotImplemented
-            return tuple.__new__(self.__class__, (self[0] // ox, self[1] // oy))
+            return tuple.__new__(Vec2, (self[0] // ox, self[1] // oy))
 
     __ifloordiv__ = __floordiv__
 
@@ -450,21 +445,21 @@ class Vec2(tuple):
         """
         try:
             other = float(other)
-            return tuple.__new__(self.__class__, (other // self[0], other // self[1]))
+            return tuple.__new__(Vec2, (other // self[0], other // self[1]))
         except TypeError:
             try:
                 ox, oy = other
             except Exception:
                 return NotImplemented
-            return tuple.__new__(self.__class__, (ox // self[0], oy // self[1]))
+            return tuple.__new__(Vec2, (ox // self[0], oy // self[1]))
 
     def __pos__(self):
         return self
 
     def __neg__(self):
         """Compute the unary negation of the vector."""
-        return tuple.__new__(self.__class__, (-self[0], -self[1]))
-
+        return tuple.__new__(Vec2, (-self[0], -self[1]))
+    
     def __abs__(self):
         """Compute the absolute magnitude of the vector."""
         return self.length
@@ -481,17 +476,8 @@ class Seq2(object):
     :param vectors: A sequence of :class:`~planar.Vec2` objects.
     """
 
-    def __init__(self, vectors, cls=None):
-        if cls == None and len(vectors) > 0 and isinstance(vectors[0], Vec2):
-            cls = vectors[0].__class__
-
-        if cls == None:
-            cls = Vec2
-        elif not issubclass(cls, Vec2):
-            raise TypeError('Seq2 cls must be Vec2 or a sub-class of Vec2')
-
-        self._cls = cls
-        self._vectors = [cls(*v) for v in vectors]
+    def __init__(self, vectors):
+        self._vectors = [Vec2(*v) for v in vectors]
 
     @classmethod
     def from_points(cls, points):
@@ -507,7 +493,7 @@ class Seq2(object):
         return self._vectors[index]
 
     def __setitem__(self, index, value):
-        self._vectors[index] = self._cls(*value)
+        self._vectors[index] = Vec2(*value)
 
     def __iter__(self):
         return iter(self._vectors)
@@ -531,11 +517,11 @@ class Seq2(object):
             return False
 
     def __eq__(self, other):
-        return (self.__class__ is other.__class__
+        return (self.__class__ is other.__class__ 
             and tuple(self) == tuple(other))
 
     def __ne__(self, other):
-        return (self.__class__ is not other.__class__
+        return (self.__class__ is not other.__class__ 
             or tuple(self) != tuple(other))
 
     def __copy__(self, memo=None):
@@ -543,7 +529,7 @@ class Seq2(object):
 
     __deepcopy__ = __copy__
 
-    def __nonzero__(self):
+    def __bool__(self):
         return bool(self._vectors)
 
     def __hash__(self):
@@ -553,8 +539,8 @@ class Seq2(object):
 class Vec2Array(Seq2):
     """Sequence of 2D vectors for batch operations"""
 
-    def __init__(self, vectors=(), cls=None):
-        super(Vec2Array, self).__init__(vectors, cls)
+    def __init__(self, vectors=()):
+        super(Vec2Array, self).__init__(vectors)
 
     def __getitem__(self, index):
         if isinstance(index, slice):
@@ -564,9 +550,9 @@ class Vec2Array(Seq2):
 
     def __setitem__(self, index, value):
         if isinstance(index, slice):
-            self._vectors[index] = [self._cls(*i) for i in value]
+            self._vectors[index] = [Vec2(*i) for i in value]
         else:
-            self._vectors[index] = self._cls(*value)
+            self._vectors[index] = Vec2(*value)
 
     def append(self, vector):
         """Append a vector to the end of the array.
@@ -574,14 +560,14 @@ class Vec2Array(Seq2):
         :param vector: Vector to append.
         :type vector: Vec2 or 2-number sequence.
         """
-        self._vectors.append(self._cls(*vector))
+        self._vectors.append(Vec2(*vector))
 
     def extend(self, iterable):
         """Append all vectors in iterable to the end of the array.
         
         :param iterable: Iterable object containing vectors.
         """
-        self._vectors.extend(self._cls(*vector) for vector in iterable)
+        self._vectors.extend(Vec2(*vector) for vector in iterable)
 
     def insert(self, index, vector):
         """Insert a vector at the specified index.
@@ -591,11 +577,11 @@ class Vec2Array(Seq2):
         :param vector: Vector to insert.
         :type vector: Vec2 or 2-number sequence.
         """
-        self._vectors.insert(index, self._cls(*vector))
+        self._vectors.insert(index, Vec2(*vector))
 
     def __delitem__(self, index):
         del self._vectors[index]
-
+    
     def longest(self):
         """Return the vector in the array with the maximum length."""
         longest = None
@@ -606,7 +592,7 @@ class Vec2Array(Seq2):
                 longest = vector
                 max_len = len
         return longest
-
+    
     def shortest(self):
         """Return the vector in the array with the minimum length."""
         shortest = None
@@ -648,7 +634,7 @@ class Vec2Array(Seq2):
             raise ValueError(
                 "Vec2Array.clamped: expected min_length >= 0")
         return self.from_points(
-            vector.clamped(min_length, max_length)
+            vector.clamped(min_length, max_length) 
             for vector in self._vectors)
 
     def clamp(self, min_length=None, max_length=None):
@@ -664,7 +650,7 @@ class Vec2Array(Seq2):
         if min_length is not None and min_length < 0.0:
             raise ValueError(
                 "Vec2Array.clamp: expected min_length >= 0")
-        self._vectors = [vector.clamped(min_length, max_length)
+        self._vectors = [vector.clamped(min_length, max_length) 
             for vector in self._vectors]
 
     def __add__(self, other):
@@ -685,7 +671,7 @@ class Vec2Array(Seq2):
                 raise ValueError("cannot add arrays with different lengths")
         else:
             try:
-                b = self._cls(*other)
+                b = Vec2(*other)
             except Exception:
                 return NotImplemented
             return self.from_points(a + b for a in self)
@@ -704,7 +690,7 @@ class Vec2Array(Seq2):
                 raise ValueError("cannot add arrays with different lengths")
         else:
             try:
-                b = self._cls(*other)
+                b = Vec2(*other)
             except Exception:
                 return NotImplemented
             self._vectors = [a + b for a in self]
@@ -725,7 +711,7 @@ class Vec2Array(Seq2):
                     "cannot subtract arrays with different lengths")
         else:
             try:
-                b = self._cls(*other)
+                b = Vec2(*other)
             except Exception:
                 return NotImplemented
             return self.from_points(a - b for a in self)
@@ -758,7 +744,7 @@ class Vec2Array(Seq2):
                     "cannot subtract arrays with different lengths")
         else:
             try:
-                b = self._cls(*other)
+                b = Vec2(*other)
             except Exception:
                 return NotImplemented
             self._vectors = [a - b for a in self]
@@ -787,7 +773,7 @@ class Vec2Array(Seq2):
                 b = float(other)
             except TypeError:
                 try:
-                    b = self._cls(*other)
+                    b = Vec2(*other)
                 except Exception:
                     return NotImplemented
             return self.from_points(a * b for a in self)
@@ -812,7 +798,7 @@ class Vec2Array(Seq2):
                 b = float(other)
             except TypeError:
                 try:
-                    b = self._cls(*other)
+                    b = Vec2(*other)
                 except Exception:
                     raise TypeError("Cannot multiply %s with %s"
                         % (type(self).__name__, type(other).__name__))
@@ -838,7 +824,7 @@ class Vec2Array(Seq2):
                 b = float(other)
             except TypeError:
                 try:
-                    b = self._cls(*other)
+                    b = Vec2(*other)
                 except Exception:
                     return NotImplemented
             return self.from_points(a / b for a in self)
@@ -873,7 +859,7 @@ class Vec2Array(Seq2):
                 b = float(other)
             except TypeError:
                 try:
-                    b = self._cls(*other)
+                    b = Vec2(*other)
                 except Exception:
                     return NotImplemented
             self._vectors = [a / b for a in self]
@@ -898,7 +884,7 @@ class Vec2Array(Seq2):
                 b = float(other)
             except TypeError:
                 try:
-                    b = self._cls(*other)
+                    b = Vec2(*other)
                 except Exception:
                     return NotImplemented
             return self.from_points(a // b for a in self)
@@ -934,7 +920,7 @@ class Vec2Array(Seq2):
                 b = float(other)
             except TypeError:
                 try:
-                    b = self._cls(*other)
+                    b = Vec2(*other)
                 except Exception:
                     return NotImplemented
             self._vectors = [a // b for a in self]
@@ -954,4 +940,5 @@ class Vec2Array(Seq2):
     __str__ = __repr__
 
 
+# vim: ai ts=4 sts=4 et sw=4 tw=78
 

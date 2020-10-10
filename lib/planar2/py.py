@@ -32,9 +32,9 @@
 __all__ = ('Vec2', 'Point', 'Vec2Array', 'Seq2', 
 	'Affine', 'Line', 'Ray', 'LineSegment', 'BoundingBox', 'Polygon')
 
-from planar.vector import Vec2, Vec2Array, Seq2
-from planar.vector import Vec2 as Point
-from planar.transform import Affine
-from planar.line import Line, Ray, LineSegment
-from planar.box import BoundingBox
-from planar.polygon import Polygon
+from planar2.vector import Vec2, Vec2Array, Seq2
+from planar2.vector import Vec2 as Point
+from planar2.transform import Affine
+from planar2.line import Line, Ray, LineSegment
+from planar2.box import BoundingBox
+from planar2.polygon import Polygon

@@ -5,7 +5,7 @@
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #
-# * Redistributions of source code must retain the above copyright notice,
+# * Redistributions of source code must retain the above copyright notice, 
 #   this list of conditions and the following disclaimer.
 # * Redistributions in binary form must reproduce the above copyright notice,
 #   this list of conditions and the following disclaimer in the documentation
@@ -19,15 +19,15 @@
 # MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
 # EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,
 # INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
 # OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #############################################################################
 
-from __future__ import division
-import planar
+
+import planar2 as planar
 import math
 
 
@@ -41,7 +41,7 @@ class _LinearGeometry(object):
         to unit-length.
         """
         return self._direction
-
+    
     @direction.setter
     def direction(self, value):
         direction = planar.Vec2(*value).normalized()
@@ -80,7 +80,7 @@ class Line(_LinearGeometry):
     def __init__(self, point, direction):
         self.direction = direction
         self.offset = planar.Vec2(*point).dot(self.normal)
-
+    
     @classmethod
     def from_points(cls, points):
         """Create a line from two or more collinear points.  The direction of
@@ -91,9 +91,9 @@ class Line(_LinearGeometry):
         """
         points = iter(points)
         try:
-            start = end = planar.Vec2(*points.next())
+            start = end = planar.Vec2(*next(points))
             while end == start:
-                end = planar.Vec2(*points.next())
+                end = planar.Vec2(*next(points))
         except StopIteration:
             raise ValueError("Expected iterable of 2 or more distinct points")
         line = _LinearGeometry.__new__(cls)
@@ -103,7 +103,7 @@ class Line(_LinearGeometry):
             if not line.contains_point(p):
                 raise ValueError("All points provided must be collinear")
         return line
-
+    
     @classmethod
     def from_normal(cls, normal, offset):
         """Create a line given a normal vector perpendicular to it, at the
@@ -119,7 +119,7 @@ class Line(_LinearGeometry):
         line.normal = normal
         line.offset = offset * 1.0
         return line
-
+    
     offset = 0.0
     """The signed distance from the origin to the line."""
 
@@ -130,7 +130,7 @@ class Line(_LinearGeometry):
         """
         point = self._normal * self.offset
         return (point, point + self._direction)
-
+    
     def distance_to(self, point):
         """Return the signed distance from the line to the specified point.
         The sign indicates which half-plane contains the point. If the
@@ -143,23 +143,23 @@ class Line(_LinearGeometry):
         """
         point = planar.Vec2(*point)
         return point.dot(self._normal) - self.offset
-
+    
     def point_left(self, point):
         """Return True if the specified point is in the half plane
         to the left of the line.
         """
         return self.distance_to(point) <= -planar.EPSILON
-
+    
     def point_right(self, point):
         """Return True if the specified point is in the half plane
         to the right of the line.
         """
         return self.distance_to(point) >= planar.EPSILON
-
+    
     def contains_point(self, point):
         """Return True if the specified point is on the line."""
         return abs(self.distance_to(point)) < planar.EPSILON
-
+    
     def parallel(self, point):
         """Return a line parallel to this one that passes through the 
         given point.
@@ -168,7 +168,7 @@ class Line(_LinearGeometry):
         :type point: Vec2
         """
         return Line(point, self.direction)
-
+    
     def perpendicular(self, point):
         """Return a line perpendicular to this one that passes through the
         given point. The orientation of this line is consistent with
@@ -210,7 +210,7 @@ class Line(_LinearGeometry):
         return self
 
     def __eq__(self, other):
-        return (self.__class__ is other.__class__
+        return (self.__class__ is other.__class__ 
             and self.offset == other.offset
             and self.direction == other.direction)
 
@@ -260,9 +260,9 @@ class Ray(_LinearGeometry):
         """
         points = iter(points)
         try:
-            start = end = planar.Vec2(*points.next())
+            start = end = planar.Vec2(*next(points))
             while end == start:
-                end = planar.Vec2(*points.next())
+                end = planar.Vec2(*next(points))
         except StopIteration:
             raise ValueError("Expected iterable of 2 or more distinct points")
         ray = _LinearGeometry.__new__(cls)
@@ -328,7 +328,7 @@ class Ray(_LinearGeometry):
         to_point = planar.Vec2(*point) - self._anchor
         return (self._direction.dot(to_point) > -planar.EPSILON
             and self._normal.dot(to_point) <= -planar.EPSILON)
-
+    
     def point_right(self, point):
         """Return True if the specified point is in the space
         to the right of, but not behind the ray.
@@ -364,7 +364,7 @@ class Ray(_LinearGeometry):
         return self
 
     def __eq__(self, other):
-        return (self.__class__ is other.__class__
+        return (self.__class__ is other.__class__ 
             and self.anchor == other.anchor
             and self.direction == other.direction)
 
@@ -414,7 +414,7 @@ class LineSegment(_LinearGeometry):
         """
         points = iter(points)
         try:
-            start = end = planar.Vec2(*points.next())
+            start = end = planar.Vec2(*next(points))
         except StopIteration:
             raise ValueError("Expected iterable of 1 or more points")
         furthest = 0.0
@@ -463,7 +463,7 @@ class LineSegment(_LinearGeometry):
         segment = _LinearGeometry.__new__(cls)
         segment.normal = normal
         start_distance *= 1.0
-        segment._anchor = (segment.normal * offset
+        segment._anchor = (segment.normal * offset 
             + start_distance * segment.direction)
         segment.length = end_distance - start_distance
         return segment
@@ -494,7 +494,7 @@ class LineSegment(_LinearGeometry):
         line segment from its anchor point.
         """
         return self.direction * self.length
-
+ 
     @vector.setter
     def vector(self, value):
         vector = planar.Vec2(*value)
@@ -566,7 +566,7 @@ class LineSegment(_LinearGeometry):
         along = self._direction.dot(to_point)
         return (self.length + planar.EPSILON > along > -planar.EPSILON
             and self._normal.dot(to_point) <= -planar.EPSILON)
-
+    
     def point_right(self, point):
         """Return True if the specified point is in the space
         to the right of, but not behind the line segment.
@@ -607,7 +607,7 @@ class LineSegment(_LinearGeometry):
         return self
 
     def __eq__(self, other):
-        return (self.__class__ is other.__class__
+        return (self.__class__ is other.__class__ 
             and self.anchor == other.anchor
             and self.vector == other.vector)
 
@@ -633,4 +633,5 @@ class LineSegment(_LinearGeometry):
             tuple(self.anchor), tuple(self.vector))
 
 
+# vim: ai ts=4 sts=4 et sw=4 tw=78
 

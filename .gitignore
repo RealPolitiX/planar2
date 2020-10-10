@@ -1,0 +1,8 @@
+*.pyc
+*.o
+#*~
+#.*
+#MANIFEST
+build/*
+dist/*
+.pypirc

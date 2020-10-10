@@ -13,7 +13,7 @@
 
 import math
 
-# Define assert_unorderable() depending on the language
+# Define assert_unorderable() depending on the language 
 # implicit ordering rules. This keeps things consistent
 # across major Python versions
 try:
@@ -38,15 +38,15 @@ def cached_property(func):
     time it is accessed.
     """
 
-    def getter(self, name=func.func_name):
+    def getter(self, name=func.__name__):
         try:
             return self.__dict__[name]
         except KeyError:
             self.__dict__[name] = value = func(self)
             return value
-
-    getter.func_name = func.func_name
-    return property(getter, doc=func.func_doc)
+    
+    getter.__name__ = func.__name__
+    return property(getter, doc=func.__doc__)
 
 def cos_sin_deg(deg):
     """Return the cosine and sin for the given angle
@@ -64,4 +64,5 @@ def cos_sin_deg(deg):
     return math.cos(rad), math.sin(rad)
 
 
+# vim: ai ts=4 sts=4 et sw=4 tw=78
 
