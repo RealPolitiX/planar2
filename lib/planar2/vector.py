@@ -1,5 +1,6 @@
 #############################################################################
 # Copyright (c) 2010 by Casey Duncan
+# Portions copyright (c) 2020 by R. Patrick Xian
 # Portions copyright (c) 2009 The Super Effective Team 
 #                             (www.supereffective.org)
 # All rights reserved.

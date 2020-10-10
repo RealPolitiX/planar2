@@ -1,5 +1,7 @@
 #############################################################################
 # Copyright (c) 2010 by Casey Duncan
+# Portions copyright (c) 2020 by R. Patrick Xian
+#
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
