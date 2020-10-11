@@ -61,6 +61,8 @@ except ImportError: # pragma: no cover
 
     __implementation__ = 'Python'
 
+from planar2 import mask
+
 Point = Vec2
 """``Point`` is an alias for ``Vec2``. 
 Use ``Point`` where desired for clarity in your code.

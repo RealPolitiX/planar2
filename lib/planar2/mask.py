@@ -6,7 +6,7 @@
 
 import numpy as np
 import warnings as wn
-from planar2 import Polygon
+import planar2 as planar
 
 try:
     import torch
@@ -35,7 +35,7 @@ def coords2d(center=(0, 0), xlen=64, ylen=64, package='numpy'):
     return coords
 
 
-class PolygonMask(Polygon):
+class PolygonMask(planar.Polygon):
     """Polygon mask class."""
     
     def __init__(self, vertices, **kwargs):
