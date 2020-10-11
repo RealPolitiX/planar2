@@ -27,7 +27,6 @@
 #############################################################################
 
 
-
 import math
 import planar2 as planar
 from planar2.util import cached_property

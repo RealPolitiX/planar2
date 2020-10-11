@@ -25,8 +25,8 @@ implementation if necessary. This insulates your program from the particulars
 of the run-time environment.
 
 If desired, you can import a particular implementation directly from the
-``planar`` package. The Python implementations can be imported from the
-``planar.py`` module::
+``planar2`` package. The Python implementations can be imported from the
+``planar2.py`` module::
 
 	from planar.py import Vec2 # Python implementation
 

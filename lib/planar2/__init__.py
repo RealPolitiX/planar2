@@ -28,6 +28,8 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #############################################################################
+
+
 """2d planar geometry library for Python"""
 
 __all__ = ('TransformNotInvertibleError', 'set_epsilon', 

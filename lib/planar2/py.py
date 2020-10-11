@@ -27,6 +27,8 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #############################################################################
+
+
 """Convenience namespace module for importing Python class implementations"""
 
 __all__ = ('Vec2', 'Point', 'Vec2Array', 'Seq2', 
