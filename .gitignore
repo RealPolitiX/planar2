@@ -1,8 +1,12 @@
+# Compilation
 *.pyc
 *.o
 #*~
 #.*
-#MANIFEST
-doc/build/*
-dist/*
+
+# Distribution
 .pypirc
+build/*
+dist/*
+
+doc/build/*

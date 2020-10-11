@@ -26,7 +26,7 @@ setup(
     name='planar2',
     version='0.4.1', # *** REMEMBER TO UPDATE __init__.py ***
     description='2D planar geometry library for Python.',
-    long_description=read('README.txt'),
+    long_description=read('README.md'),
     provides=['planar2'],
     author='Casey Duncan, R. Patrick Xian',
     author_email='casey.duncan@gmail.com',
