@@ -1,6 +1,8 @@
 ## planar2
 
-Planar2 is an extension of the [planar](https://github.com/Benjamin-Dobell/planar) package by Casey Duncan. Planar is a 2D geometry library for Python designed to be useful for most any program that needs a convenient, high-performance geometry API. Planar2 added geometry component generation along with update and refinement of the original planar classes to the current Python environment.
+Planar2 is an extension of the [planar](https://github.com/Benjamin-Dobell/planar) package by Casey Duncan. Planar is a 2D geometry library for Python designed to be useful for most any program that needs a convenient, high-performance geometry API. Planar2 added geometry component generation along with update and refinement of the original planar classes to the current Python environment. The functionalities of planar2 allows generation of the following complex shape progression.
+
+![profile](https://github.com/RealPolitiX/planar2/blob/master/resource/star_polygon_space.png)
 
 
 ### Installation
